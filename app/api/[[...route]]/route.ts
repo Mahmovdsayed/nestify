@@ -1,7 +1,12 @@
+import { apiKeyMiddleware, dbMiddleware, rateLimit } from "@/lib/middlewares";
 import { Hono } from "hono";
 import { handle } from "hono/vercel";
 
 const app = new Hono().basePath("/api/v1");
+
+app.use("*", dbMiddleware);
+app.use("*", apiKeyMiddleware);
+app.use("*", rateLimit(5, 60 * 1000));
 
 app.get("/", (c) => {
   return c.json({
