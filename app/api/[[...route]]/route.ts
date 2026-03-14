@@ -1,4 +1,4 @@
-import { apiKeyMiddleware, dbMiddleware, rateLimit } from "@/lib/middlewares";
+import { apiKeyMiddleware, dbMiddleware, rateLimit } from "@/middlewares/middlewares";
 import { Hono } from "hono";
 import { handle } from "hono/vercel";
 

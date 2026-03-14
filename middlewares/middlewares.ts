@@ -1,5 +1,5 @@
 import { Context, Next } from "hono";
-import { connectToDatabase } from "./connectToDatabase";
+import { connectToDatabase } from "../lib/connectToDatabase";
 const rateLimitStore = new Map<string, { count: number; resetTime: number }>();
 const API_SECRET_KEY = process.env.API_SECRET_KEY || "";
 
