@@ -3,23 +3,17 @@ import type { ZodSchema } from "zod";
 
 type ValidationTarget = "json" | "query" | "param" | "header" | "form";
 
-export const validate = <T extends ValidationTarget>(
-  target: T,
-  schema: ZodSchema,
-) =>
+export const validate = (target: ValidationTarget, schema: ZodSchema) =>
   zValidator(target, schema, (result, c) => {
     if (!result.success) {
-      return c.json(
-        {
-          success: false,
-          message: "Validation error please check your inputs",
-          errors: result.error.issues.map((e) => {
-            const path = e.path.length > 0 ? e.path.join(".") : target;
-            return `${path} - ${e.message}`;
-          }),
-        },
-        400,
-      );
+      return c.json({
+        success: false,
+        message: "Validation error please check your inputs",
+        errors: result.error.issues.map((e) => {
+          const path = e.path.length ? e.path.join(".") : target;
+          return `${path} - ${e.message}`;
+        }),
+      });
     }
   });
 

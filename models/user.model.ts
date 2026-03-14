@@ -54,17 +54,13 @@ const userSchema = new Schema<IUser>(
     resetPasswordExpires: { type: Date },
     resetPasswordToken: { type: String },
     provider: { type: String, enum: ["local", "google"], default: "local" },
-    avatar: {
-      url: { type: String },
-      publicId: { type: String },
-    },
+    avatar: { type: String },
   },
   { timestamps: true, versionKey: false },
 );
 
-// improve 
+// improve
 userSchema.index({ email: 1 });
-
 
 const User: Model<IUser> =
   mongoose.models.User || mongoose.model<IUser>("User", userSchema);

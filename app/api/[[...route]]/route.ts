@@ -1,6 +1,7 @@
 import { apiKeyMiddleware, dbMiddleware, rateLimit } from "@/middlewares/middlewares";
 import { Hono } from "hono";
 import { handle } from "hono/vercel";
+import authRoutes from "@/routes/auth.routes";
 
 const app = new Hono().basePath("/api/v1");
 
@@ -26,6 +27,9 @@ app.get("/", (c) => {
     },
   });
 });
+
+// Routes
+app.route("/auth", authRoutes);
 
 export const GET = handle(app);
 export const POST = handle(app);
