@@ -1,11 +1,6 @@
 import z from "zod";
 
-export const signUpValidaionSchema = z.object({
-  name: z
-    .string()
-    .min(3, { message: "Name must be at least 3 characters" })
-    .max(50, { message: "Name must be at most 50 characters" })
-    .trim(),
+export const signInValidationSchema = z.object({
   email: z
     .string()
     .trim()
@@ -13,6 +8,7 @@ export const signUpValidaionSchema = z.object({
     .regex(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, {
       message: "Invalid email format",
     }),
+
   password: z
     .string()
     .min(6, { message: "Password must be at least 6 characters" })
@@ -23,4 +19,4 @@ export const signUpValidaionSchema = z.object({
     }),
 });
 
-export type SignUpValidationSchema = z.infer<typeof signUpValidaionSchema>;
+export type SignInValidationSchema = z.infer<typeof signInValidationSchema>;
