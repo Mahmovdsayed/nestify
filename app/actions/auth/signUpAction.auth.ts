@@ -8,7 +8,8 @@ import { Context } from "hono";
 
 export const signUpAction = async (c: Context) => {
   try {
-    const { name, email, password }: SignUpValidationSchema = await c.req.json();
+    const { name, email, password }: SignUpValidationSchema =
+      await c.req.json();
     const existingUser = await User.findOne({ email }).select("email").lean();
     if (existingUser)
       throw new ConflictError(
@@ -65,6 +66,9 @@ export const signUpAction = async (c: Context) => {
       success: true,
       message:
         "User created successfully , please check your email to verify your account",
+      data: {
+        email,
+      },
     });
   } catch (error) {
     if (error instanceof ConflictError) {

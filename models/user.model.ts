@@ -34,6 +34,7 @@ const userSchema = new Schema<IUser>(
       unique: true,
       trim: true,
       lowercase: true,
+      index: true,
     },
     password: { type: String, required: true },
     role: { type: String, enum: ["customer", "admin"], default: "customer" },
@@ -59,8 +60,6 @@ const userSchema = new Schema<IUser>(
   { timestamps: true, versionKey: false },
 );
 
-// improve
-userSchema.index({ email: 1 });
 
 const User: Model<IUser> =
   mongoose.models.User || mongoose.model<IUser>("User", userSchema);
